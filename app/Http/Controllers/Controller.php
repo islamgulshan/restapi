@@ -14,7 +14,7 @@ class Controller extends BaseController {
 
     public function __construct() {
         $msgLog = new Logger('RequestResponseLogs');
-        $msgLog->pushHandler(new StreamHandler('/Applications/MAMP/htdocs/traveldele-lumen/logs/requestresponse.log', Logger::INFO));
+        $msgLog->pushHandler(new StreamHandler(base_path().'/logs/requestresponse.log', Logger::INFO));
         //Set up the client with necessary parameters:
                 //Set up the client with necessary parameters:
         $params = new Params([
@@ -25,7 +25,7 @@ class Controller extends BaseController {
         ],
         'sessionHandlerParams' => [
             'soapHeaderVersion' => Client::HEADER_V4, //This is the default value, can be omitted.
-            'wsdl' => '/Applications/MAMP/htdocs/traveldele-lumen/resources/wsdl/1ASIWOTANA4_PDT_20180321_161425/1ASIWOTANA4_PDT_20180321_161424.wsdl',
+            'wsdl' => base_path().'/resources/wsdl/1ASIWOTANA4_PDT_20180321_161425/1ASIWOTANA4_PDT_20180321_161424.wsdl',
             'stateful' => false, //Enable stateful messages by default - can be changed at will to switch between stateless & stateful.
             'logger' => $msgLog,
         ],
