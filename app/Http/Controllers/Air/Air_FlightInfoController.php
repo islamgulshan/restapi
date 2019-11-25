@@ -25,15 +25,19 @@ class Air_FlightInfoController extends Controller {
    *
    */
   public function getFlightinfo(Request $request) {
-     
-    $flightInfo = $this->client->airFlightInfo(new AirFlightInfoOptions([
-       'airlineCode' => $request->input('airlineCode'),
-        'flightNumber' => $request->input('flightNumber'),
-        'departureDate' => \DateTime::createFromFormat('Y-m-d', $request->input('departureDate')),
-        'departureLocation' => $request->input('departureLocation'),
-        'arrivalLocation' => $request->input('arrivalLocation')
-      ])
-    );
+     $query=array();
+   
+      $query['airlineCode'] = $request->input('airlineCode');
+      $query['flightNumber'] = $request->input('flightNumber');
+      $query['departureDate'] = \DateTime::createFromFormat('Y-m-d', $request->input('departureDate'));
+      if ($request->input('arrivalDate')) {
+            $query['arrivalDate'] = \DateTime::createFromFormat('Y-m-d', $request->input('arrivalDate'));
+      }
+       
+      $query['departureLocation'] = $request->input('departureLocation');
+      $query['arrivalLocation'] = $request->input('arrivalLocation');
+      $flightInfo = $this->client->airFlightInfo(new AirFlightInfoOptions($query));
+        
     $xml = new Converter($flightInfo->responseXml);
     return json_encode($xml);
 

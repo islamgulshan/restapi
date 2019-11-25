@@ -68,6 +68,7 @@ class AirMultiAvailabilityController extends Controller {
       $connections = unserialize($request->input('excludeConnections'));
       $query['excludedConnections'] = implode(",", $connections);
     }
+    
     if ($request->input('includeConnections')) {
       $connections = unserialize($request->input('includeConnections'));
       $query['includedConnections'] = implode(",", $connections);
